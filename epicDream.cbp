@@ -14,6 +14,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -25,6 +26,7 @@
 				<Compiler>
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -42,11 +44,19 @@
 			<Add directory="D:/soft/CodeBlocks/SDK/Irrlicht/lib" />
 		</Linker>
 		<Unit filename="include/BasicNode.h" />
+		<Unit filename="include/InputEventManager.h" />
+		<Unit filename="include/Pilot.h" />
+		<Unit filename="include/PlayerPilot.h" />
 		<Unit filename="include/headers.h" />
 		<Unit filename="include/ship.h" />
+		<Unit filename="include/utils.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/BasicNode.cpp" />
+		<Unit filename="src/InputEventManager.cpp" />
+		<Unit filename="src/Pilot.cpp" />
+		<Unit filename="src/PlayerPilot.cpp" />
 		<Unit filename="src/ship.cpp" />
+		<Unit filename="src/utils.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

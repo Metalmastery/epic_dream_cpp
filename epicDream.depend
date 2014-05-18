@@ -1,6 +1,10 @@
 # depslib dependency file v1.0
-1398994299 source:d:\prog\c++\epicdream\main.cpp
+1400458495 source:d:\prog\c++\epicdream\main.cpp
 	"headers.h"
+	"utils.h"
+	"ship.h"
+	"PlayerPilot.h"
+	"BasicNode.h"
 
 1352121254 d:\soft\codeblocks\sdk\irrlicht\include\irrlicht.h
 	"IrrCompileConfig.h"
@@ -995,20 +999,20 @@
 1398382130 source:d:\prog\c++\epicdream\ship\ship.cpp
 	"ship.h"
 
-1398994974 source:d:\prog\c++\epicdream\src\ship.cpp
+1400457913 source:d:\prog\c++\epicdream\src\ship.cpp
 	"ship.h"
+	"PlayerPilot.h"
 
-1398994992 d:\prog\c++\epicdream\include\ship.h
-	"irrlicht.h"
+1400459505 d:\prog\c++\epicdream\include\ship.h
+	"headers.h"
+	"Pilot.h"
 
-1398991862 d:\prog\c++\epicdream\include\headers.h
+1399594523 d:\prog\c++\epicdream\include\headers.h
 	<iostream>
 	"irrlicht.h"
-	"ship.h"
-	"BasicNode.h"
 	"InputEventManager.h"
 
-1398994884 source:d:\prog\c++\epicdream\src\basicnode.cpp
+1400457295 source:d:\prog\c++\epicdream\src\basicnode.cpp
 	"BasicNode.h"
 
 1398992602 d:\prog\c++\epicdream\include\basicnode.h
@@ -1020,4 +1024,22 @@
 1398986600 d:\prog\c++\epicdream\include\inputeventmanager.h
 	"irrlicht.h"
 	<iostream>
+
+1399593914 source:d:\prog\c++\epicdream\src\pilot.cpp
+	"Pilot.h"
+
+1399594903 d:\prog\c++\epicdream\include\pilot.h
+
+1399592819 d:\prog\c++\epicdream\include\utils.h
+	"headers.h"
+
+1400459769 source:d:\prog\c++\epicdream\src\playerpilot.cpp
+	"PlayerPilot.h"
+
+1399595052 d:\prog\c++\epicdream\include\playerpilot.h
+	<utils.h>
+	<ship.h>
+
+1400458094 source:d:\prog\c++\epicdream\src\utils.cpp
+	<utils.h>
 

@@ -1,15 +1,42 @@
 #include "headers.h"
+#include "utils.h"
+#include "ship.h"
+#include "PlayerPilot.h"
+#include "BasicNode.h"
+
 
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
+void addBasicSurface(ISceneManager * smgr, IVideoDriver* driver) {
+
+   // Create a terrain scene node
+   IAnimatedMesh *terrain_model = smgr->addHillPlaneMesh("starPlane", // Name of the scenenode
+                           core::dimension2d<f32>(256.0f, 256.0f), // Tile size
+                           core::dimension2d<u32>(8, 8), // Tile count
+                           0, // Material
+                           0.0f, // Hill height
+                           core::dimension2d<f32>(0.0f, 0.0f), // countHills
+                           core::dimension2d<f32>(8.0f, 8.0f)); // textureRepeatCount
+    ISceneNode * terrain_node;
+   terrain_node = smgr->addAnimatedMeshSceneNode(terrain_model);
+   terrain_node->setMaterialTexture(0, driver->getTexture("starfield.png"));
+   terrain_node->setMaterialFlag(EMF_LIGHTING, false);
+
+   // Insert it into the scene
+   terrain_node->setPosition(vector3df(0,0,10));
+   terrain_node->setRotation(vector3df(-90,0,0));
+
+}
+
 int main()
 {
-    InputEventManager imgr;
+    InputEventManager * imgr = getEventManager();
 
-    IrrlichtDevice *device = createDevice( video::EDT_OPENGL, core::dimension2d<u32>(800, 600), 16, false, false, false, &imgr);
+
+    IrrlichtDevice *device = getDevice();
 
     if (!device)
         return 1;
@@ -21,7 +48,7 @@ int main()
 //    guienv->addStaticText(L"Hello World 2", core::recti(10, 10, 100, 30));
     device->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
 
-    Ship* ship = new Ship();
+    Ship* ship = new Ship(new PlayerPilot(), vector3df(50,50,0),0.0);
 
 //    smgr->setAmbientLight(video::SColorf(0.3,0.3,0.3,1));
     ILightSceneNode* light1 = smgr->addLightSceneNode( 0, core::vector3df(25,30,-12), video::SColorf(0.3f,0.3f,0.3f), 150.0f, 1 );
@@ -39,7 +66,15 @@ int main()
 
     BasicNode *myNode = new BasicNode(smgr->getRootSceneNode(), smgr, 23);
 
+    addBasicSurface(smgr, driver);
+
     while(device->run()) {
+        // camera follows player
+        vector3df pos = ship->getPosition();
+        camera->setTarget(pos);
+        pos.Z = -500;
+        camera->setPosition(pos);
+        //
 
         if(++frames == 100)
         {
@@ -51,25 +86,10 @@ int main()
             device->setWindowCaption(str.c_str());
             frames=0;
 
-            if (imgr.IsKeyDown(irr::EKEY_CODE(KEY_KEY_W))){
-                ship->accelerate();
-            }
-            if (imgr.IsKeyDown(irr::EKEY_CODE(KEY_KEY_S))){
-                ship->setPosition(vector3df(0,0,0));
-            }
-            if (imgr.IsKeyDown(irr::EKEY_CODE(KEY_KEY_A))){
-                ship->rotateWithDiff(0.001);
-            }
-            if (imgr.IsKeyDown(irr::EKEY_CODE(KEY_KEY_D))){
-                ship->rotateWithDiff(-0.001);
-            }
-            core::position2d <s32> pos = device->getCursorControl()->getPosition();
-            pos -= vector2d <s32>(400, 300);
-            ship->setRotationAngle(pos.getAngle() / 180.0 * PI);
-            ship->updatePosition();
+            ship->update(0.01);
 
 //    1        myNode->setRotation(vector3df(0,0,ship->getRotationAngleInDegrees()));
-            myNode->setRotation(vector3df(0,0,pos.getAngle()));
+            myNode->setRotation(vector3df(0,0,ship->getRotationAngleInDegrees()));
             myNode->setPosition(ship->getPosition());
 
             driver->beginScene(true, true, SColor(255, 150, 150, 150));

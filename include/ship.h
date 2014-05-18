@@ -1,7 +1,9 @@
 #ifndef SHIP_H_INCLUDED
 #define SHIP_H_INCLUDED
 
-#include "irrlicht.h"
+#include "headers.h"
+#include "Pilot.h"
+
 using namespace irr;
 using namespace core;
 
@@ -9,15 +11,21 @@ class Ship
 {
     public:
         Ship();
-//        Ship(int posX, posY);
+        Ship(Pilot* pilot, vector3df pos, float angle);
         ~Ship();
 
-        void setRotationAngle(float angle);
         float getRotationAngle();
         float getRotationAngleInDegrees();
         void rotateWithDiff(float diff);
+
         void accelerate();
-        void updatePosition();
+        void update(float time = 1.0);
+
+        void rotateLeft();
+        void rotateRight();
+        void rotateToPoint(vector3df pos);
+        void rotateToAngle(float angle);
+
         void setPosition(const vector3df& pos);
         vector3df getPosition();
 
@@ -26,14 +34,15 @@ class Ship
     protected:
 
     private:
-        float positionX;
-        float positionY;
-        float velocityX;
-        float velocityY;
         float rotationAngle;
+        float rotationSpeed;
+        float rotationAcceleration;
         vector3df position;
         vector3df velocity;
+        float acceleration;
+        void init (Pilot* pilot, const vector3df& pos = vector3df(), float angle = 0.0);
 
+        Pilot * pilot;
 };
 
 

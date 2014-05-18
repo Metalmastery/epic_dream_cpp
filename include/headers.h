@@ -4,8 +4,6 @@
 #include <iostream>
 #include "irrlicht.h"
 
-#include "ship.h"
-#include "BasicNode.h"
 #include "InputEventManager.h"
 
 using namespace std;

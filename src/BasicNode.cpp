@@ -14,7 +14,7 @@ BasicNode::BasicNode(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 i
             color, 1, 1);
     Vertices[2] = video::S3DVertex(-10,5,0, 0,1,1,
             color, 1, 0);
-    Vertices[3] = video::S3DVertex(-5,0,-3, 0,0,1,
+    Vertices[3] = video::S3DVertex(-5,0,0, 0,0,1,
             color, 0, 0);
 
     Box.reset(Vertices[0].Pos);
